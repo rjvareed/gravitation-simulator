@@ -3,7 +3,7 @@ Simple Hamiltonian simulation of particles written in C
 Meant to be run on Linux
 Requires libgtk-3.0
 
-Instructions for compiling via command line:
+Instructions for compiling and running via command line:
 
 ```make```
 
