@@ -8,26 +8,17 @@ Frame* buffer;
 double *mass;
 
 const unsigned CALCULATIONS_PER_SECOND = 1000;
-const unsigned NUM_FRAMES = 60*CALCULATIONS_PER_SECOND;
+const unsigned NUM_FRAMES = 30*CALCULATIONS_PER_SECOND;
 const double G = 1500;
 
 const double DT = 1/((double)CALCULATIONS_PER_SECOND);
 const double _H = 0.000001;
-
-//double metric_tensor[2][2] = {{1,0},{0,1}};
-
-//double innerProductSquared(double x[2]){
-//	return metric_tensor[0][0]*x[0]*x[0]+metric_tensor[0][1]*x[0]*x[1]+metric_tensor[1][0]*x[1]*x[0]+metric_tensor[1][1]*x[1]*x[1];
-//}
-//const double C = 500;
 
 double computeHamiltonian(Frame f){
 	double hamiltonian = 0;
 	//kinetic
 	for(unsigned j=0;j<numParticles;j++)
 		hamiltonian += (f.particles[j].p[0]*f.particles[j].p[0]+f.particles[j].p[1]*f.particles[j].p[1])/(2*mass[j]);
-	//for(unsigned j=0;j<numParticles;j++)
-	//	hamiltonian += C*sqrt(mass[j]*mass[j]*C*C+f.particles[j].p[0]*f.particles[j].p[0]+f.particles[j].p[1]*f.particles[j].p[1]);
 	
 	//gravity
 	for(unsigned j=0;j<numParticles;j++){
