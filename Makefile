@@ -6,6 +6,8 @@ all: main.c
 	$(CC) -c drawing.c $(CFLAGS) 
 	$(CC) -c main.c $(CFLAGS)
 	$(CC) main.o drawing.o -o app $(CFLAGS) $(LDFLAGS)
+	rm -f *.o
 
 clean:
 	rm -f *.o
+	rm app
