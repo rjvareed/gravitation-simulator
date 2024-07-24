@@ -32,7 +32,9 @@ void* thread_draw(){
 		cairo_set_source_rgb(context, 1.0, 0, 0);
 		//draw the particles (squares of length sideLength centered at the x and y positions of the particles)
 		int frameNumber = (frame*CALCULATIONS_PER_SECOND/FRAME_RATE) % NUM_FRAMES;
-		printf("frame %d\n",frameNumber);
+		
+		fflush(stdout);
+		printf("frame %d            \r",frameNumber);
 		for(unsigned i=0;i<numParticles;i++){
 			cairo_arc(context,buffer[frameNumber].particles[i].x[0],buffer[frameNumber].particles[i].x[1],5,0,2*M_PI);
 			cairo_stroke(context);
