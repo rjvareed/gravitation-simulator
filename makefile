@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -Wall `pkg-config --cflags gtk+-3.0` -lm -lpthread
-LDFLAGS = `pkg-config --libs gtk+-3.0`
+CFLAGS = -Wall `pkg-config --cflags gtk+-3.0`
+LDFLAGS = `pkg-config --libs gtk+-3.0` -lm -lpthread
 
 all: main.c
 	$(CC) -c drawing.c $(CFLAGS) 
