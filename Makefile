@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall `pkg-config --cflags gtk+-3.0`
+CFLAGS = -O3 -Wall `pkg-config --cflags gtk+-3.0`
 LDFLAGS = `pkg-config --libs gtk+-3.0` -lm -lpthread
 
 all: main.c

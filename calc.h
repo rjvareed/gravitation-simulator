@@ -8,17 +8,17 @@ Frame* buffer;
 double *mass;
 
 const unsigned CALCULATIONS_PER_SECOND = 1000;
-const unsigned NUM_FRAMES = 30*CALCULATIONS_PER_SECOND;
+const unsigned NUM_FRAMES = 60*CALCULATIONS_PER_SECOND;
 const double G = 1500;
 
 const double DT = 1/((double)CALCULATIONS_PER_SECOND);
 const double _H = 0.000001;
 
-double computeHamiltonian(Frame f){
+double computeHamiltonian(Frame *f){
 	double hamiltonian = 0;
 	//kinetic
 	for(unsigned j=0;j<numParticles;j++)
-		hamiltonian += (f.particles[j].p[0]*f.particles[j].p[0]+f.particles[j].p[1]*f.particles[j].p[1])/(2*mass[j]);
+		hamiltonian += (f->particles[j].p[0]*f->particles[j].p[0]+f->particles[j].p[1]*f->particles[j].p[1])/(2*mass[j]);
 	
 	//gravity
 	for(unsigned j=0;j<numParticles;j++){
@@ -26,8 +26,8 @@ double computeHamiltonian(Frame f){
 			if(j == k)
 				continue;
 			hamiltonian -= G*mass[j]*mass[k]/sqrt(
-			(f.particles[j].x[0]-f.particles[k].x[0])*(f.particles[j].x[0]-f.particles[k].x[0])+
-			(f.particles[j].x[1]-f.particles[k].x[1])*(f.particles[j].x[1]-f.particles[k].x[1])
+			(f->particles[j].x[0]-f->particles[k].x[0])*(f->particles[j].x[0]-f->particles[k].x[0])+
+			(f->particles[j].x[1]-f->particles[k].x[1])*(f->particles[j].x[1]-f->particles[k].x[1])
 			);
 		}
 	}
@@ -37,19 +37,19 @@ double computeHamiltonian(Frame f){
 void calculateParticles(){
 	printf("Calculating...\n");
 	for(unsigned i=0; i<NUM_FRAMES-1;i++){
-		Frame current = buffer[i];
+		Frame *current = buffer+i;
 		double hc = computeHamiltonian(current);
 		for(unsigned j=0; j<numParticles;j++){
 			for(int c=0;c<2;c++){
 				// dq/dt=dh/dp
 				// dp/dt=-dh/dq
-				current.particles[j].p[c] += _H;
+				current->particles[j].p[c] += _H;
 				double hn = computeHamiltonian(current);
-				current.particles[j].p[c] -= _H;
+				current->particles[j].p[c] -= _H;
 				buffer[i+1].particles[j].x[c] = buffer[i].particles[j].x[c] + (hn - hc)/_H*DT;
-				current.particles[j].x[c] += _H;
+				current->particles[j].x[c] += _H;
 				hn = computeHamiltonian(current);
-				current.particles[j].x[c] -= _H;
+				current->particles[j].x[c] -= _H;
 				buffer[i+1].particles[j].p[c] = buffer[i].particles[j].p[c] - (hn - hc)/_H*DT;
 			}
 		}
