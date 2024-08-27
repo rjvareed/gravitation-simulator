@@ -1,15 +1,17 @@
-// Credit to https://gist.github.com/bert/9bb403b01a3029b988938a7ce8217735
-//
-// 	8/19/2022 added a destroy mutex object statement at the end of start_gtk()
-//	changed thread_draw signature to void*() from void*(void*)
-//
-//	changed while loop from while(1) to while(status) and added status variable
-//	added pthread_join call (status is set to 0 beforehand so that the while loop exits)
-//
-//	added signal(SIGINT, &handle_sigint) before gtk_main()
-//	added handle_sigint() method
-
 #include "drawing.h"
+
+const int WIDTH = 600;
+const int HEIGHT = 600;
+const char TITLE[] = "Drawing Example";
+int status = 1;
+cairo_surface_t *surface= NULL;
+int surface_height;
+int surface_width;
+pthread_mutex_t mutex;
+pthread_t drawing_thread;
+unsigned frame = 0;
+const int FRAME_RATE = 60;
+
 
 void* thread_draw(){
 	while(status){

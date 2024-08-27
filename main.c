@@ -1,6 +1,6 @@
 #include <time.h>
 #include "calc.h"
-extern void start_gtk();
+#include "drawing.h"
 
 int main(int argc, char **argv){
 	srand(time(NULL));

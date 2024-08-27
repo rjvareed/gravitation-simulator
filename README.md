@@ -15,17 +15,27 @@ Where H is the Hamiltonian, in this case
 
 $$H=\sum_i \frac{p_i^2}{2m_i}-\sum_{i \neq j} G\frac{m_i m_j}{\sqrt{(x_i-x_j)^2+(y_i-y_j)^2}}$$
 
-This is much easier to integrate than the second order differential equations given by Newton's 2nd law. The positions of the particles for each time slice are saved into memory and displayed using a timer.
+This is much easier to integrate than the second order differential equations given by Newton's 2nd law. 
+
+$$m_i\frac{d^2x_i}{dt^2}=\sum_{i\neq j}\frac{Gm_im_j(x_i-x_j)}{((x_i-x_j)^2+(y_i-y_j)^2)^{3/2}}$$
+
+$$m_i\frac{d^2y_i}{dt^2}=\sum_{i\neq j}\frac{Gm_im_j(y_i-y_j)}{((x_i-x_j)^2+(y_i-y_j)^2)^{3/2}}$$
+
+The positions of the particles for each time slice are saved into memory and displayed using a timer.
 
 # Instructions for compiling and running via command line:
 This program is meant to be run on Linux and requires libgtk-3-dev.
 
 ```sudo apt install libgtk-3-dev```
 
-```make```
+To compile and run:
+```
+make
 
-```./app```
+./app
+```
 
 Wait a few seconds for it step through its calculations, then a window will pop up showing the particles.
 
 Let me know if you have any problems.
+

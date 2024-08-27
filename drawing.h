@@ -8,26 +8,24 @@
 #include <pthread.h>
 #include <signal.h>
 
-#include "definitions.h"
+#include "calc.h"
 
 //local constants
-const int FRAME_RATE = 60;
-const int WIDTH = 600;
-const int HEIGHT = 600;
-const char TITLE[] = "Drawing Example";
-extern const unsigned NUM_FRAMES;
-unsigned frame = 0;
+extern const int FRAME_RATE;
+extern const int WIDTH;
+extern const int HEIGHT;
+extern const char TITLE[];
+extern unsigned frame;
 extern unsigned const CALCULATIONS_PER_SECOND;
 
 //local variables
-extern unsigned numParticles;
 extern Frame *buffer;
-pthread_t drawing_thread;
-pthread_mutex_t mutex;
-cairo_surface_t *surface = NULL;
-int surface_width;
-int surface_height;
-int status = 1;
+extern pthread_t drawing_thread;
+extern pthread_mutex_t mutex;
+extern cairo_surface_t *surface;
+extern int surface_width;
+extern int surface_height;
+extern int status;
 
 //Local function prototypes
 gboolean invalidate_cb(void*);
